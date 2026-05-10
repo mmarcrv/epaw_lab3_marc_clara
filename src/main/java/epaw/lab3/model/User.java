@@ -17,6 +17,7 @@ public class User implements Serializable {
 	private String email;
 	private String dateOfBirth;
 	private String comarca;
+	private String role;
 
 	public User() {
 		super();
@@ -92,6 +93,14 @@ public class User implements Serializable {
 
 	public void setComarca(String comarca) {
 		this.comarca = comarca;
+	}
+
+	public String getRole() {
+		return role;
+	}
+
+	public void setRole(String role) {
+		this.role = role;
 	}
 
 }

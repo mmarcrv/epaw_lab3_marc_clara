@@ -51,7 +51,7 @@ public class UserRepository extends BaseRepository {
     }
 
     public boolean checkLogin(User user) {
-        String query = "SELECT id, picture from users where name=? AND password=?";
+        String query = "SELECT id, picture, role FROM users WHERE name=? AND password=?";
         try (PreparedStatement statement = db.prepareStatement(query)) {
             statement.setString(1, user.getName());
             statement.setString(2, user.getPassword());
@@ -59,6 +59,7 @@ public class UserRepository extends BaseRepository {
                 if (rs.next()) {
                     user.setId(rs.getInt("id"));
                     user.setPicture(rs.getString("picture"));
+                    user.setRole(rs.getString("role"));
                     return true;
                 }
             }
@@ -86,7 +87,7 @@ public class UserRepository extends BaseRepository {
     }
 
     public Optional<User> findByName(String name) {
-        String query = "SELECT id, name, password, picture, firstName, lastName, email, dateOfBirth, comarca FROM users WHERE name = ?";
+        String query = "SELECT id, name, password, picture, firstName, lastName, email, dateOfBirth, comarca, role FROM users WHERE name = ?";
         try (PreparedStatement statement = db.prepareStatement(query)) {
             statement.setString(1, name);
             ResultSet rs = statement.executeQuery();
@@ -101,6 +102,7 @@ public class UserRepository extends BaseRepository {
                 user.setEmail(rs.getString("email"));
                 user.setDateOfBirth(rs.getString("dateOfBirth"));
                 user.setComarca(rs.getString("comarca"));
+                user.setRole(rs.getString("role"));
                 return Optional.of(user);
             }
         } catch (SQLException e) {

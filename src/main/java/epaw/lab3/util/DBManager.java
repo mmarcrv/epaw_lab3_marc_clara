@@ -27,6 +27,8 @@ public class DBManager {
 
 			if (!dbExists) {
 				initDatabase();
+			} else {
+				migrateDatabase();
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -38,6 +40,14 @@ public class DBManager {
 			instance = new DBManager();
 		}
 		return instance;
+	}
+
+	private void migrateDatabase() {
+		try (Statement stmt = connection.createStatement()) {
+			stmt.execute("ALTER TABLE users ADD COLUMN role VARCHAR(10) NOT NULL DEFAULT 'user'");
+		} catch (SQLException e) {
+			// Column already exists, ignore
+		}
 	}
 
 	private void initDatabase() throws Exception {

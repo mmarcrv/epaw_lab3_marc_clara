@@ -6,12 +6,10 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import epaw.lab3.model.User;
 
 import java.io.IOException;
 
-/**
- * Servlet implementation class Menu
- */
 @WebServlet("/Menu")
 public class Menu extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -22,8 +20,10 @@ public class Menu extends HttpServlet {
 		HttpSession session = request.getSession(false);
 		String view = "MenuNotLogged.html";
 
-		if (session != null && session.getAttribute("user") != null)
-			view = "MenuLogged.html";
+		if (session != null && session.getAttribute("user") != null) {
+			User user = (User) session.getAttribute("user");
+			view = "admin".equals(user.getRole()) ? "MenuAdmin.html" : "MenuLogged.html";
+		}
 
 		request.getRequestDispatcher(view).forward(request, response);
 	}

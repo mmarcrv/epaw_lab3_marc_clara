@@ -7,5 +7,6 @@ CREATE TABLE users (
   lastName VARCHAR(50),
   email VARCHAR(100),
   dateOfBirth VARCHAR(10),
-  comarca VARCHAR(50)
+  comarca VARCHAR(50),
+  role VARCHAR(10) NOT NULL DEFAULT 'user'
 );
