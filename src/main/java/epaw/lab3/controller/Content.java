@@ -20,13 +20,7 @@ public class Content extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		HttpSession session = request.getSession(false);
-		String view = "Login";
-
-		if (session != null && session.getAttribute("user") != null)
-			view = "Welcome.jsp";
-
-		request.getRequestDispatcher(view).forward(request, response);
+		request.getRequestDispatcher("Feed.jsp").forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
